@@ -1,0 +1,42 @@
+"""Constants for the XMluyouqiwenkong (Xiaomi router monitor) integration."""
+
+DOMAIN = "xmluyouqiwenkong"
+
+DEFAULT_PORT = 23
+DEFAULT_SSH_PORT = 22
+PROTOCOL_TELNET = "telnet"
+PROTOCOL_SSH = "ssh"
+DEFAULT_PROTOCOL = PROTOCOL_TELNET
+DEFAULT_USERNAME = "root"
+DEFAULT_PASSWORD = ""
+DEFAULT_SCAN_INTERVAL = 30
+DEFAULT_TIMEOUT = 10
+
+MIN_SCAN_INTERVAL = 10
+MAX_SCAN_INTERVAL = 3600
+MIN_TIMEOUT = 3
+MAX_TIMEOUT = 60
+
+DEFAULT_TEMP_THRESHOLD = 75.0
+MIN_TEMP_THRESHOLD = 30.0
+MAX_TEMP_THRESHOLD = 110.0
+
+CONF_PROTOCOL = "protocol"
+CONF_HOST = "host"
+CONF_PORT = "port"
+CONF_USERNAME = "username"
+CONF_PASSWORD = "password"
+CONF_SCAN_INTERVAL = "scan_interval"
+CONF_TIMEOUT = "timeout"
+CONF_TEMP_THRESHOLD = "temp_threshold"
+
+# 这些配置变化才需要重新加载集成（温度阈值是运行时状态，不触发重载）
+CONN_KEYS = (
+    CONF_PROTOCOL,
+    CONF_HOST,
+    CONF_PORT,
+    CONF_USERNAME,
+    CONF_PASSWORD,
+    CONF_SCAN_INTERVAL,
+    CONF_TIMEOUT,
+)

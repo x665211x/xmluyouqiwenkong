@@ -1,0 +1,195 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "小米路由器温控（Telnet）",
+        "description": "填写路由器的局域网 IP 与 Telnet 登录信息。已开启 Telnet 的小米路由器一般是 192.168.1.1、端口 23、用户 root；如果 Telnet 直接进入 root shell，密码留空即可。",
+        "data": {
+          "host": "路由器 IP 地址",
+          "port": "端口（Telnet 23 / SSH 22）",
+          "username": "Telnet 用户名",
+          "password": "Telnet 密码（无密码留空）",
+          "scan_interval": "刷新间隔（秒）",
+          "timeout": "连接超时（秒）",
+          "temp_threshold": "过热告警阈值（℃）",
+          "protocol": "连接方式"
+        }
+      },
+      "reauth_confirm": {
+        "title": "重新登录路由器",
+        "description": "路由器的 Telnet 账号或密码已变化，请重新输入。",
+        "data": {
+          "username": "Telnet 用户名",
+          "password": "Telnet 密码"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "连接不上路由器：请确认 IP 是否正确、Telnet 是否已开启、23 端口是否可达。",
+      "invalid_auth": "Telnet 用户名或密码不正确（需要密码时请填写 root 密码）。",
+      "unknown": "未知错误，请查看 Home Assistant 日志。"
+    },
+    "abort": {
+      "already_configured": "该路由器（同一 IP）已经在 HA 中添加过了。",
+      "reauth_successful": "重新认证成功。",
+      "reauth_failed": "重新认证失败，找不到原配置条目。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "小米路由器温控设置",
+        "description": "修改 IP、端口、账号、刷新间隔或过热告警阈值；保存后会先验证一次连接。",
+        "data": {
+          "host": "路由器 IP 地址",
+          "port": "端口（Telnet 23 / SSH 22）",
+          "username": "Telnet 用户名",
+          "password": "Telnet 密码（无密码留空）",
+          "scan_interval": "刷新间隔（秒）",
+          "timeout": "连接超时（秒）",
+          "temp_threshold": "过热告警阈值（℃）",
+          "protocol": "连接方式"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "连接不上路由器：请确认 IP 是否正确、Telnet 是否已开启。",
+      "invalid_auth": "Telnet 用户名或密码不正确。",
+      "unknown": "未知错误，请查看 Home Assistant 日志。"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "cpu_temperature": {
+        "name": "CPU 温度"
+      },
+      "cpu_usage": {
+        "name": "CPU 占用率"
+      },
+      "cpu_frequency": {
+        "name": "CPU 频率"
+      },
+      "load_1m": {
+        "name": "1 分钟负载"
+      },
+      "load_5m": {
+        "name": "5 分钟负载"
+      },
+      "load_15m": {
+        "name": "15 分钟负载"
+      },
+      "memory_usage": {
+        "name": "内存占用率"
+      },
+      "memory_available": {
+        "name": "可用内存"
+      },
+      "memory_total": {
+        "name": "内存总量"
+      },
+      "uptime": {
+        "name": "运行时长"
+      },
+      "connected_devices": {
+        "name": "在线设备数"
+      },
+      "wifi_clients": {
+        "name": "Wi-Fi 终端数"
+      },
+      "rx_rate": {
+        "name": "下载速率"
+      },
+      "tx_rate": {
+        "name": "上传速率"
+      },
+      "rx_total": {
+        "name": "累计下载流量"
+      },
+      "tx_total": {
+        "name": "累计上传流量"
+      },
+      "storage_usage": {
+        "name": "存储占用率"
+      },
+      "storage_used": {
+        "name": "已用存储"
+      },
+      "storage_total": {
+        "name": "存储总量"
+      },
+      "fan_speed": {
+        "name": "风扇转速"
+      },
+      "processes": {
+        "name": "进程数"
+      },
+      "wifi_radios": {
+        "name": "无线射频数"
+      },
+      "model": {
+        "name": "设备型号"
+      },
+      "firmware": {
+        "name": "固件版本"
+      },
+      "kernel": {
+        "name": "内核版本"
+      },
+      "hostname": {
+        "name": "主机名"
+      },
+      "snapshot": {
+        "name": "状态快照"
+      }
+    },
+    "binary_sensor": {
+      "online": {
+        "name": "Telnet 连接"
+      },
+      "overheat": {
+        "name": "过热告警"
+      },
+      "fan_running": {
+        "name": "风扇运转"
+      }
+    },
+    "number": {
+      "temp_threshold": {
+        "name": "过热告警阈值"
+      }
+    },
+    "button": {
+      "refresh": {
+        "name": "立即刷新"
+      }
+    }
+  },
+  "services": {
+    "run_command": {
+      "name": "执行 shell 命令",
+      "description": "通过 Telnet 在路由器上执行一条 shell 命令并返回输出。",
+      "fields": {
+        "command": {
+          "name": "命令",
+          "description": "要执行的 shell 命令，可多行。"
+        },
+        "entry_id": {
+          "name": "配置条目",
+          "description": "多台路由器时指定目标，不填则用第一个。"
+        }
+      }
+    },
+    "ping": {
+      "name": "从路由器 ping",
+      "description": "让路由器自己发 ICMP 包，判断外网或路由器出口是否正常。"
+    },
+    "traceroute": {
+      "name": "从路由器 traceroute",
+      "description": "查看路由器到目标地址的中间跳，定位是哪一段不通。"
+    },
+    "tail_log": {
+      "name": "读取路由器日志",
+      "description": "只读文件末尾若干行，用来快速看最近报错。"
+    }
+  }
+}

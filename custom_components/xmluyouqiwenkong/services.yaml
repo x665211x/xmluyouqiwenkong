@@ -1,0 +1,106 @@
+run_command:
+  name: 执行 shell 命令
+  description: 通过 Telnet 在路由器上执行一条（或一段）shell 命令并返回输出，用于排查与读取脚本里没覆盖的状态。
+  fields:
+    command:
+      name: 命令
+      description: 要执行的 shell 命令，可以多行。例如 cat /proc/uptime
+      required: true
+      example: "cat /proc/uptime; uptime"
+      selector:
+        text:
+          multiline: true
+    entry_id:
+      name: 配置条目
+      description: 有多台路由器时指定目标；不填则使用第一个。
+      required: false
+      selector:
+        config_entry:
+          integration: xmluyouqiwenkong
+
+ping:
+  name: 从路由器 ping（网络诊断）
+  description: 让路由器自己对目标地址发 ICMP 包，用来判断是外网断了还是路由器本身有问题。
+  fields:
+    target:
+      name: 目标地址
+      description: 只能填 IP 或域名，默认 ping 阿里 DNS 223.5.5.5。
+      required: false
+      example: "223.5.5.5"
+      selector:
+        text:
+    count:
+      name: 次数
+      description: 1–20，默认 4。
+      required: false
+      default: 4
+      selector:
+        number:
+          min: 1
+          max: 20
+          mode: box
+    entry_id:
+      name: 配置条目
+      description: 有多台路由器时指定目标；不填则使用第一个。
+      required: false
+      selector:
+        config_entry:
+          integration: xmluyouqiwenkong
+
+traceroute:
+  name: 从路由器 traceroute（路由追踪）
+  description: 看路由器到目标地址中间经过哪些跳，用来定位是哪一段网络不通。
+  fields:
+    target:
+      name: 目标地址
+      description: 只能填 IP 或域名，默认 223.5.5.5。
+      required: false
+      example: "223.5.5.5"
+      selector:
+        text:
+    max_hops:
+      name: 最大跳数
+      description: 1–30，默认 12。
+      required: false
+      default: 12
+      selector:
+        number:
+          min: 1
+          max: 30
+          mode: box
+    entry_id:
+      name: 配置条目
+      description: 有多台路由器时指定目标；不填则使用第一个。
+      required: false
+      selector:
+        config_entry:
+          integration: xmluyouqiwenkong
+
+tail_log:
+  name: 读取路由器日志尾部
+  description: 只读取文件末尾若干行，用来快速看最近的报错，不做任何写入。
+  fields:
+    path:
+      name: 文件路径
+      description: 绝对路径，只允许字母数字与 . : / _ -；默认 /tmp/messages。
+      required: false
+      example: "/tmp/messages"
+      selector:
+        text:
+    lines:
+      name: 行数
+      description: 1–200，默认 40。
+      required: false
+      default: 40
+      selector:
+        number:
+          min: 1
+          max: 200
+          mode: box
+    entry_id:
+      name: 配置条目
+      description: 有多台路由器时指定目标；不填则使用第一个。
+      required: false
+      selector:
+        config_entry:
+          integration: xmluyouqiwenkong

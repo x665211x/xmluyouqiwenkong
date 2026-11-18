@@ -1,0 +1,13 @@
+{
+  "domain": "xmluyouqiwenkong",
+  "name": "小米路由器温控 XMluyouqiwenkong",
+  "version": "1.5.0",
+  "documentation": "https://www.mi.com/service/miwifi/",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": ["paramiko>=3.4.0"],
+  "iot_class": "local_polling",
+  "config_flow": true,
+  "integration_type": "hub",
+  "loggers": ["custom_components.xmluyouqiwenkong"]
+}
