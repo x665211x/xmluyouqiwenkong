@@ -1,0 +1,195 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Xiaomi Router Monitor (Telnet)",
+        "description": "Enter the router LAN IP and Telnet credentials. Most Xiaomi routers with Telnet enabled use 192.168.31.1, port 23, user root; leave the password empty if Telnet drops you straight into a root shell.",
+        "data": {
+          "host": "Router IP address",
+          "port": "Port (Telnet 23 / SSH 22)",
+          "username": "Telnet username",
+          "password": "Telnet password (empty if none)",
+          "scan_interval": "Update interval (seconds)",
+          "timeout": "Connection timeout (seconds)",
+          "temp_threshold": "Overheat warning threshold (℃)",
+          "protocol": "Connection"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate with the router",
+        "description": "The Telnet username or password changed. Enter the new credentials.",
+        "data": {
+          "username": "Telnet username",
+          "password": "Telnet password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot reach the router: check the IP, the Telnet service and port 23.",
+      "invalid_auth": "Wrong Telnet username or password (fill in the root password when required).",
+      "unknown": "Unexpected error, check the Home Assistant log."
+    },
+    "abort": {
+      "already_configured": "This router IP is already configured.",
+      "reauth_successful": "Re-authentication successful.",
+      "reauth_failed": "Re-authentication failed, config entry not found."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Xiaomi Router Monitor options",
+        "description": "Change IP, port, credentials, update interval or the overheat threshold. The connection is verified on save.",
+        "data": {
+          "host": "Router IP address",
+          "port": "Port (Telnet 23 / SSH 22)",
+          "username": "Telnet username",
+          "password": "Telnet password (empty if none)",
+          "scan_interval": "Update interval (seconds)",
+          "timeout": "Connection timeout (seconds)",
+          "temp_threshold": "Overheat threshold (°C)",
+          "protocol": "Connection"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot reach the router: check the IP and the Telnet service.",
+      "invalid_auth": "Wrong Telnet username or password.",
+      "unknown": "Unexpected error, check the Home Assistant log."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "cpu_temperature": {
+        "name": "CPU temperature"
+      },
+      "cpu_usage": {
+        "name": "CPU usage"
+      },
+      "cpu_frequency": {
+        "name": "CPU frequency"
+      },
+      "load_1m": {
+        "name": "Load 1 min"
+      },
+      "load_5m": {
+        "name": "Load 5 min"
+      },
+      "load_15m": {
+        "name": "Load 15 min"
+      },
+      "memory_usage": {
+        "name": "Memory usage"
+      },
+      "memory_available": {
+        "name": "Memory available"
+      },
+      "memory_total": {
+        "name": "Memory total"
+      },
+      "uptime": {
+        "name": "Uptime"
+      },
+      "connected_devices": {
+        "name": "Connected devices"
+      },
+      "wifi_clients": {
+        "name": "Wi-Fi clients"
+      },
+      "rx_rate": {
+        "name": "Download rate"
+      },
+      "tx_rate": {
+        "name": "Upload rate"
+      },
+      "rx_total": {
+        "name": "Total downloaded"
+      },
+      "tx_total": {
+        "name": "Total uploaded"
+      },
+      "storage_usage": {
+        "name": "Storage usage"
+      },
+      "storage_used": {
+        "name": "Storage used"
+      },
+      "storage_total": {
+        "name": "Storage total"
+      },
+      "fan_speed": {
+        "name": "Fan speed"
+      },
+      "processes": {
+        "name": "Processes"
+      },
+      "wifi_radios": {
+        "name": "Wireless radios"
+      },
+      "model": {
+        "name": "Model"
+      },
+      "firmware": {
+        "name": "Firmware"
+      },
+      "kernel": {
+        "name": "Kernel"
+      },
+      "hostname": {
+        "name": "Hostname"
+      },
+      "snapshot": {
+        "name": "State snapshot"
+      }
+    },
+    "binary_sensor": {
+      "online": {
+        "name": "Telnet connection"
+      },
+      "overheat": {
+        "name": "Overheat"
+      },
+      "fan_running": {
+        "name": "Fan running"
+      }
+    },
+    "number": {
+      "temp_threshold": {
+        "name": "Overheat threshold"
+      }
+    },
+    "button": {
+      "refresh": {
+        "name": "Refresh now"
+      }
+    }
+  },
+  "services": {
+    "run_command": {
+      "name": "Run shell command",
+      "description": "Run a shell command on the router over Telnet and return its output.",
+      "fields": {
+        "command": {
+          "name": "Command",
+          "description": "Shell command to run, multiline allowed."
+        },
+        "entry_id": {
+          "name": "Config entry",
+          "description": "Target router when several are configured; defaults to the first."
+        }
+      }
+    },
+    "ping": {
+      "name": "Ping from router",
+      "description": "Run ping on the router itself."
+    },
+    "traceroute": {
+      "name": "Traceroute from router",
+      "description": "Run traceroute on the router."
+    },
+    "tail_log": {
+      "name": "Read router log tail",
+      "description": "Read the last lines of a log file."
+    }
+  }
+}
